@@ -3,7 +3,20 @@
  * Fonction qui renvoie le minimum de deux nombres
  */
 export function min(a: number, b: number): number {
-    return NaN;
+    // let minimum : number ;
+    // if(a < b){
+    //     minimum = a ;
+    // }
+    // else {
+    //     minimum = b ;
+    // }
+    // return minimum ;
+
+    // Solution 2 - Ternaire
+    //return (a < b) ? a : b ;
+
+    // solution 3
+    return Math.min(a,b) ;
 }
 
 
@@ -11,7 +24,21 @@ export function min(a: number, b: number): number {
  * Fonction qui trie des nombres par ordre croissant
  */
 export function triCroissant(L: readonly number[]): number[] {
-    return [];
+    // Solution 1
+    // let tabTrie = [...L] ;
+    // for(let i=0; i<tabTrie.length - 1; i++){
+    //     for(let j=0; j<tabTrie.length - i - 1; j++){
+    //         if(min(tabTrie[j],tabTrie[j+1]) === tabTrie[j+1]){
+    //             let tmp = tabTrie[j] ;
+    //             tabTrie[j] = tabTrie[j+1] ;
+    //             tabTrie[j+1] = tmp ;
+    //         }
+    //     }
+    // }
+    // return tabTrie ;
+
+    // solution 2
+    return [...L].sort((a,b) => a - b) ;
 }
 
 
@@ -19,7 +46,24 @@ export function triCroissant(L: readonly number[]): number[] {
  * Fonction qui trie des nombres par ordre décroissant
  */
 export function triDécroissant(L: readonly number[]): number[] {
-    return [];
+    // solution 1
+    // let tabTrie = [...L] ;
+    // for(let i=0; i<tabTrie.length - 1; i++){
+    //     for(let j=0; j<tabTrie.length - i - 1; j++){
+    //         if(min(tabTrie[j],tabTrie[j+1]) === tabTrie[j]){
+    //             let tmp = tabTrie[j] ;
+    //             tabTrie[j] = tabTrie[j+1] ;
+    //             tabTrie[j+1] = tmp ;
+    //         }
+    //     }
+    // }
+    // return tabTrie ;
+
+    // solution 2
+    return triCroissant([...L]).reverse() ;
+
+    // solution 3
+    //return [...L].sort((a,b) => b - a) ;
 }
 
 
@@ -29,7 +73,13 @@ export function triDécroissant(L: readonly number[]): number[] {
  * Lever l'erreur à l'aide de throw new Error( ....... )
  */
 export function Somme(L: readonly number[]): number {
-    return NaN;
+    try{
+        return L.reduce(
+            (resultat,valCourante) => resultat + valCourante
+        ) ;
+    }catch{
+        throw new Error("Impossible de sommer un tableau vide") ;
+    }
 }
 
 
@@ -39,7 +89,11 @@ export function Somme(L: readonly number[]): number {
  * Lever l'erreur à l'aide de throw new Error( ....... )
  */
 export function Moyenne(L: readonly number[]): number {
-    return NaN
+    try{
+        return Somme(L) / L.length ;
+    }catch{
+        throw new Error("Impossible de faire la moyenne d'un tableau vide") ;
+    }
 }
 
 
@@ -48,7 +102,8 @@ export function Moyenne(L: readonly number[]): number {
  * et triés par ordre croissant
  */
 export function NombresSupérieursA(min: number, notes: readonly number[]): number[] {
-    return [];
+    const tmp = notes.filter((note) => note > min) ;
+    return triCroissant(tmp) ;
 }
 
 
@@ -57,7 +112,8 @@ export function NombresSupérieursA(min: number, notes: readonly number[]): numb
  * (valeurs non inclues) et triés par ordre croissant
  */
 export function NombresComprisEntre(min: number, max: number, notes: readonly number[]): number[] {
-    return [];
+    const tmp = notes.filter((note) => (note > min && note < max)) ;
+    return triCroissant(tmp) ;
 }
 
 
