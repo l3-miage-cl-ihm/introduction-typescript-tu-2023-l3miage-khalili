@@ -37,7 +37,7 @@ export function triCroissant(L: readonly number[]): number[] {
     // }
     // return tabTrie ;
 
-    // solution 2
+    // solution 2 
     return [...L].sort((a,b) => a - b) ;
 }
 
@@ -128,7 +128,10 @@ type ZipArgs<R extends unknown[]> = {
 type ZipResult<R extends unknown[]> = readonly R[];
 
 export function Zip<R extends unknown[]>(...LL: ZipArgs<R>): ZipResult<R> {
-    return [];
+    const Lmin = LL.length == 0 ? [] : LL.reduce(
+        (Lm,L) => Lm.length < L.length ? Lm : L
+    )
+    return Lmin.map( (_, i) => LL.map( L => L[i]) ) as unknown as ZipResult<R> ;
 }
 
 /***********************************************************************************************************************
@@ -138,7 +141,19 @@ export function Zip<R extends unknown[]>(...LL: ZipArgs<R>): ZipResult<R> {
  * Lever l'erreur à l'aide de throw new Error( ....... )
  */
 export function ProduitScalaire(V1: readonly number[], V2: readonly number[]): number {
-    return NaN;
+    if(V1.length === 0 || V2.length === 0){
+        throw new Error("Les vecteurs doivent être non vides") ;
+    }
+    else if(V1.length !== V2.length){
+        throw new Error("Les vecteurs doivent être de même taille") ;
+    }
+    else{
+        let somme = 0 ;
+        for (let i = 0; i < V1.length; i++) {
+            somme += V1[i] * V2[i] ;
+        }
+        return somme;
+    }
 }
 
 
